@@ -1,0 +1,58 @@
+:root {
+  /* FABRICATION TUNING */
+  --frame-offset-top: 455px;
+  --frame-offset-left: 620px;
+  
+  /* VIEWPORT DIMENSIONS */
+  --view-width: 2600px;
+  --view-height: 1630px;
+  
+  /* BRAND COLORS */
+  --cap1-blue: #a0d8e9;
+  --cap1-green: #8ca74d;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--cap1-blue); /* Fills the entire 4K display */
+  overflow: hidden; /* Prevents the OS from showing scrollbars */
+}
+
+/* The "World" Container */
+.app-container {
+  width: 3840px;
+  height: 2160px;
+  position: relative;
+}
+
+/* Frame window */
+/* We keep overflow: hidden here so Screen 2 doesn't show up inside Screen 1's window */
+.safe-zone-viewport {
+  position: absolute;
+  top: var(--frame-offset-top);
+  left: var(--frame-offset-left);
+  width: var(--view-width);
+  height: var(--view-height);
+  overflow: hidden; 
+}
+
+/* The Moving Ribbon */
+.ribbon {
+  display: flex;
+  width: calc(var(--view-width) * 7);
+  /* The move distance is exactly one view-width */
+  transform: translateX(calc(var(--current-index, 0) * -1 * var(--view-width)));
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* Individual Screens */
+.screen {
+  width: var(--view-width);
+  height: var(--view-height);
+  flex-shrink: 0;
+  position: relative;
+  /* Visual guide for you during dev - remove later */
+  outline: 1px rgba(255,255,255,0.2) dashed; 
+}

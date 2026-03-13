@@ -1,0 +1,262 @@
+:root {
+  --frame-offset-top: 455px;
+  --frame-offset-left: 620px;
+  --view-width: 2600px;
+  --view-height: 1630px;
+  --cap1-blue: #a0d8e9; /* Sky Blue  */
+  --cap1-navy: #013D5B; /* dark blue */
+  --cap1-green: #8ca74d; /* Green Buttons [cite: 7, 13] */
+}
+
+/* Set global text color */
+body, h1, h2, p, .headline-bold, .body-text {
+    color: var(--cap1-navy);
+}
+
+/* Ensure the outline headlines use the brand blue for the stroke */
+.headline-outline {
+    color: transparent;
+    -webkit-text-stroke: 3px var(--cap1-navy);
+}
+
+/* Keep button text white */
+.btn-learn-more {
+    color: white !important;
+}
+
+/* Adjust the underline to match the text */
+.ui-underline {
+    border-bottom: 8px solid var(--cap1-navy);
+}
+
+/* Laptop Dev Background */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #333; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* The 4K Canvas */
+.app-container {
+  width: 3840px;
+  height: 2160px;
+  background-color: var(--cap1-blue); /* This should show the blue now */
+  position: relative;
+}
+
+/* The Viewport (clipping window) */
+.safe-zone-viewport {
+  position: absolute;
+  top: var(--frame-offset-top);
+  left: var(--frame-offset-left);
+  width: var(--view-width);
+  height: var(--view-height);
+  overflow: visible; /* Changed from hidden to visible for dev - should be visible for final */
+  outline: 2px dashed rgba(255,255,255,0.2); /* Semi-visible guide for dev */
+}
+
+.ribbon {
+  display: flex;
+  width: calc(var(--view-width) * 7);
+  height: 100%;
+  /* This math is critical: */
+  transform: translateX(calc(var(--current-index, 0) * -1 * var(--view-width)));
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.screen {
+    width: var(--view-width);
+    height: var(--view-height);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertical Center */
+    align-items: center;     /* Horizontal Center */
+    text-align: center;      /* Ensures text lines wrap centered */
+    position: relative;
+    padding: 0 200px;        /* Side gutters so text doesn't hit the frame */
+    box-sizing: border-box;
+}
+
+.content-centered {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.headline-bold, .headline-outline {
+    font-size: 180px; /* Huge for 4K visibility */
+    margin: 0;
+}
+
+.btn-learn-more {
+    /* 1. Size & Shape */
+    width: 795px;       
+    height: 230px;        
+    border-radius: 80px;  
+
+    /* 2. Colors & Typography */
+    background-color: var(--cap1-green); 
+    color: white !important;
+    font-family: 'Optimist', sans-serif;
+    font-weight: 600; 
+    font-size: 54px;      /* Large, legible text */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    /* 3. Layout & Alignment */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;     /* Space below the body text */
+    border: none;
+    cursor: pointer;
+
+    /* 4. Interaction Cleanup */
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Tactile feedback for the touch screen */
+.btn-learn-more:active {
+    transform: scale(0.96);
+    background-color: #7a9342; /* Slightly darker green on press */
+}
+
+
+.svg-layer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Sits behind the text */
+    pointer-events: none; /* Touches go "through" to the buttons */
+    display: flex;
+    align-items: flex-end; /* Anchors buildings to the floor */
+    justify-content: space-around;
+}
+
+.building-svg {
+    height: 600px; /* Scale based on 4K height */
+    width: auto;
+}
+
+.nav-ui-layer {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    z-index: 100;
+}
+
+.nav-dots {
+    display: flex;
+    gap: 30px;
+    background: none; /* Removed the pill background */
+    padding: 0;
+}
+
+.dot {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    /* Inactive State: Solid Navy */
+    background-color: var(--cap1-navy);
+    border: 3px solid var(--cap1-navy); 
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    -webkit-tap-highlight-color: transparent; /* Specifically for touch-based Chromium */
+}
+
+.dot:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.dot.active {
+    /* Active State: Outline only */
+    background-color: transparent;
+    transform: scale(1.2);
+}
+
+/* Nav arrows */
+.nav-arrow {
+  
+    width: 30px; 
+    height: 30px;
+    
+    /* Increase thickness from 6px to 12px for better "weight" */
+    border-top: 12px solid var(--cap1-navy);
+    border-right: 12px solid var(--cap1-navy);
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Optional: Add a little "press" feedback for the touch screen */
+.nav-arrow:active {
+    transform: scale(0.9) rotate(var(--rotation)); /* Keeps the direction while shrinking */
+}
+
+/* Update these to ensure the rotation doesn't conflict with the active state */
+.left-arrow { 
+    transform: rotate(-135deg); 
+    --rotation: -135deg;
+}
+
+.right-arrow { 
+    transform: rotate(45deg); 
+    --rotation: 45deg;
+}
+
+/* Utility classes for JS to toggle */
+.hidden { opacity: 0; pointer-events: none; }
+
+.scenery-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Sits behind text content */
+    pointer-events: none; /* User touches pass through to buttons */
+}
+
+.scenery-item {
+    position: absolute;
+    bottom: 0;
+    height: 700px; /* Base height */
+    width: auto;
+    
+    /* Combine Scale and X-Offset into one transform */
+    /* Note: Scale comes first to avoid math issues with translation */
+    transform: translateX(var(--x-offset, 0)) scale(var(--scale, 1));
+    
+    /* Ensure it scales from the bottom so it stays on the floor */
+    transform-origin: bottom; 
+}
+
+.pos-left {
+    left: 0;
+}
+
+.pos-right {
+    right: 0;
+}
+

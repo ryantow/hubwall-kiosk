@@ -1,0 +1,57 @@
+/* 1. Light Weight */
+@font-face {
+  font-family: 'Optimist';
+  src: url('../assets/fonts/Optimist_Light.ttf') format('truetype');
+  font-weight: 300;
+}
+
+/* 2. Regular Weight */
+@font-face {
+  font-family: 'Optimist';
+  src: url('../assets/fonts/Optimist_Regularg.ttf') format('truetype');
+  font-weight: 400;
+}
+
+/* 3. Semi-Bold Weight */
+@font-face {
+  font-family: 'Optimist';
+  src: url('../assets/fonts/Optimist_SemiBold.ttf') format('truetype');
+  font-weight: 600;
+}
+
+/* 4. Bold Weight */
+@font-face {
+  font-family: 'Optimist';
+  src: url('../assets/fonts/Optimist_Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+/* --- TYPOGRAPHY UTILITIES --- */
+
+/* Standard Bold Headline  */
+.headline-bold {
+  font-family: 'Optimist', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+/* The Bold Outline Style  */
+.headline-outline {
+  font-family: 'Optimist', sans-serif;
+  font-weight: 700;
+  color: transparent; /* Makes the "fill" invisible */
+  text-transform: uppercase;
+}
+
+/* The Underline Style  */
+.ui-underline {
+  display: inline-block;
+  padding-bottom: 4px;
+}
+
+/* Body Text [cite: 3, 11] */
+.body-text {
+  font-family: 'Optimist', sans-serif;
+  font-weight: 300; /* Light weight */
+}

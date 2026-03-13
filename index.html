@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capital One Hubwall</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+    <link rel="stylesheet" href="src/styles/typography.css">
+</head>
+
+<body>
+    <div id="scale-wrapper">
+        <div class="app-container">
+            <div class="safe-zone-viewport">
+                <div id="ribbon" class="ribbon" style="--current-index: 0;">
+
+                    <section class="screen" id="screen-0">
+                        <div class="scenery-container">
+                            <img src="src/assets/images/hubwall_scenery_01.svg" class="scenery-item pos-left"
+                                style="--x-offset: -50px;">
+                            <img src="src/assets/images/hubwall_scenery_02.svg" class="scenery-item pos-right"
+                                style="--x-offset: 766px;">
+                        </div>
+                        <div class="content-centered">
+                            <h1 class="headline-bold">FLEXIBLE BANKING</h1>
+                            <h2 class="headline-outline">FOR YOUR BUSY LIFE</h2>
+                            <p class="body-text" style="font-size: 48px; margin-top: 40px;">
+                                There are plenty of <span class="ui-underline">ways to bank</span> with us.
+                            </p>
+                            <button id="start-button" class="btn-learn-more">LEARN MORE</button>
+                        </div>
+                    </section>
+
+                    <section class="screen" id="screen-1">
+                        <div class="scenery-container">
+                            <img src="src/assets/images/hubwall_scenery_03.svg" class="scenery-item pos-right"
+                                style="--x-offset: 530px;">
+                        </div>
+                        <div class="content-centered">
+                            <h1 class="headline-bold">Bank online right from your phone</h1>
+                            <h2 class="headline-outline">WITH THE MOBILE APP</h2>
+                            <p class="body-text" style="font-size: 48px; margin-top: 40px;">
+                                Manage your accounts 24/7 from your phone.
+                            </p>
+                        </div>
+                        <div class="fdic-branding">MEMBER FDIC</div>
+                    </section>
+
+                    <section class="screen" id="screen-2">
+                        <div class="scenery-container">
+                            <img src="src/assets/images/hubwall_scenery_04.svg" class="scenery-item pos-right"
+                                style="--x-offset: 530px; --scale: 1.25;">
+                        </div>
+                        <div class="content-centered">
+                            <h1 class="headline-bold">CAPITAL ONE CAFES</h1>
+                            <h2 class="headline-outline">GRAB A COFFEE & BANK</h2>
+                            <p class="body-text" style="font-size: 48px; margin-top: 40px;">
+                                A space to get your banking done and recharge.
+                            </p>
+                        </div>
+                        <div class="fdic-branding">MEMBER FDIC</div>
+                    </section>
+
+                    <section class="screen" id="screen-3">
+                        <div class="scenery-container">
+                            <img src="src/assets/images/hubwall_scenery_05.svg" class="scenery-item pos-right"
+                                style="--x-offset: 430px;">
+                        </div>
+                        <div class="content-centered">
+                            <h1 class="headline-bold">TOP-TIER SECURITY</h1>
+                            <h2 class="headline-outline">ALWAYS PROTECTED</h2>
+                            <p class="body-text" style="font-size: 48px; margin-top: 40px;">
+                                We keep your information safe and secure.
+                            </p>
+                        </div>
+                        <div class="fdic-branding">MEMBER FDIC</div>
+                    </section>
+
+                    <section class="screen" id="screen-4">
+                        <div class="scenery-container">
+                            <img src="src/assets/images/hubwall_scenery_06.svg" class="scenery-item pos-right"
+                                style="--x-offset: 530px;">
+                        </div>
+                        <div class="content-centered">
+                            <h1 class="headline-bold">GROW YOUR MONEY</h1>
+                            <h2 class="headline-outline">HIGH-YIELD SAVINGS</h2>
+                            <p class="body-text" style="font-size: 48px; margin-top: 40px;">
+                                Watch your savings grow with competitive rates.
+                            </p>
+                        </div>
+                        <div class="fdic-branding">MEMBER FDIC</div>
+                    </section>
+
+                    <section class="screen" id="screen-5">
+                        <div class="scenery-container">
+                            <img src="src/assets/images/hubwall_scenery_07.svg" class="scenery-item pos-right"
+                                style="--x-offset: 530px;">
+                        </div>
+                        <div class="content-centered">
+                            <h1 class="headline-bold">WE'RE HERE TO HELP</h1>
+                            <h2 class="headline-outline">24/7 CUSTOMER CARE</h2>
+                            <p class="body-text" style="font-size: 48px; margin-top: 40px;">
+                                Get support whenever you need it most.
+                            </p>
+                        </div>
+                        <div class="fdic-branding">MEMBER FDIC</div>
+                    </section>
+
+                    <section class="screen" id="screen-6">
+                        <div class="scenery-container">
+                            <img src="src/assets/images/hubwall_scenery_08.svg" class="scenery-item pos-right"
+                                style="--x-offset: 530px;">
+                        </div>
+                        <div class="content-centered">
+                            <h1 class="headline-bold">GET STARTED TODAY</h1>
+                            <h2 class="headline-outline">SCAN THE QR CODE</h2>
+                            <p class="body-text" style="font-size: 32px; margin-top: 40px;">
+                                Scan or visit: capitalone.com/bank/ways-to-bank/
+                            </p>
+                            <button class="btn-learn-more" style="margin-top: 60px;" onclick="goToScreen(0)">START
+                                OVER</button>
+                        </div>
+                        <div class="fdic-branding">MEMBER FDIC</div>
+                    </section>
+
+                </div>
+                <div id="nav-container" class="nav-ui-layer" style="display: none;">
+                    <div class="nav-arrow left-arrow" onclick="navPrev()"></div>
+
+                    <div class="nav-dots">
+                        <div class="dot" onclick="goToScreen(1)"></div>
+                        <div class="dot" onclick="goToScreen(2)"></div>
+                        <div class="dot" onclick="goToScreen(3)"></div>
+                        <div class="dot" onclick="goToScreen(4)"></div>
+                        <div class="dot" onclick="goToScreen(5)"></div>
+                        <div class="dot" onclick="goToScreen(6)"></div>
+                    </div>
+
+                    <div class="nav-arrow right-arrow" onclick="navNext()"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="src/main.js"></script>
+</body>
+
+</html>
