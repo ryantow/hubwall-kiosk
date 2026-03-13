@@ -57,7 +57,8 @@ body {
   width: var(--view-width);
   height: var(--view-height);
   overflow: visible; /* Changed from hidden to visible for dev - should be visible for final */
-  outline: 2px dashed rgba(255,255,255,0.2); /* Semi-visible guide for dev */
+  outline: 2px dashed rgba(85, 85, 85, 0.513); /* Semi-visible guide for dev */
+  z-index: 9999;
 }
 
 .ribbon {
@@ -154,7 +155,7 @@ body {
 
 .nav-ui-layer {
     position: absolute;
-    bottom: 80px;
+    bottom: 160px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -241,15 +242,16 @@ body {
 .scenery-item {
     position: absolute;
     bottom: 0;
-    height: 700px; /* Base height */
-    width: auto;
     
-    /* Combine Scale and X-Offset into one transform */
-    /* Note: Scale comes first to avoid math issues with translation */
-    transform: translateX(var(--x-offset, 0)) scale(var(--scale, 1));
+    /* Use the pixel values from Illustrator */
+    width: var(--svg-w, auto);
+    height: var(--svg-h, auto);
     
-    /* Ensure it scales from the bottom so it stays on the floor */
-    transform-origin: bottom; 
+    /* Keep the X-offset for positioning */
+    transform: translateX(var(--x-offset, 0));
+    
+    /* Ensure the browser treats the SVG as a sharp vector at 4K */
+    image-rendering: auto;
 }
 
 .pos-left {
