@@ -174,3 +174,75 @@ async function loadKioskConfig() {
 
 // Run this when the app starts
 window.addEventListener('DOMContentLoaded', loadKioskConfig);
+
+// --- UPDATED PHYSICS ENGINE ---
+let startX = 0;
+let isDragging = false;
+let startTime = 0;
+const viewWidth = 2600; // MUST MATCH --view-width in CSS
+
+const ribbon = document.getElementById('ribbon');
+
+ribbon.addEventListener('touchstart', (e) => {
+    // If on Screen 0, we only allow the button to work, no swiping
+    if (currentIndex === 0) return;
+
+    startX = e.touches[0].clientX;
+    startTime = new Date().getTime();
+    isDragging = true;
+    
+    // Kill transition for 1:1 finger tracking
+    ribbon.style.transition = 'none'; 
+});
+
+ribbon.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    
+    const currentX = e.touches[0].clientX;
+    const diff = currentX - startX;
+    
+    // RUBBER BAND LOGIC
+    // Apply 0.3 friction if pulling past the edges (Screen 1 or Screen 6)
+    let dragDistance = diff;
+    if ((currentIndex === 1 && diff > 0) || (currentIndex === 6 && diff < 0)) {
+        dragDistance = diff * 0.3; 
+    }
+
+    // Calculate current position: (Index * -Width) + current finger offset
+    const currentTranslate = (currentIndex * -viewWidth) + dragDistance;
+    
+    // Update the position in real-time using the CSS variable or direct transform
+    ribbon.style.transform = `translateX(${currentTranslate}px)`;
+});
+
+ribbon.addEventListener('touchend', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+
+    const endX = e.changedTouches[0].clientX;
+    const endTime = new Date().getTime();
+    
+    const movedBy = endX - startX;
+    const duration = endTime - startTime;
+    
+    // Velocity calculation (pixels per millisecond)
+    const velocity = Math.abs(movedBy) / duration;
+
+    // Reset transition for the "Snap"
+    ribbon.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+
+    // DECISION LOGIC: Did they move far enough OR flick fast enough?
+    if (Math.abs(movedBy) > viewWidth / 4 || velocity > 0.5) {
+        if (movedBy > 30 && currentIndex > 1) {
+            goToScreen(currentIndex - 1);
+        } else if (movedBy < -30 && currentIndex < 6) {
+            goToScreen(currentIndex + 1);
+        } else {
+            // If they tried to swipe past boundaries, snap back
+            goToScreen(currentIndex);
+        }
+    } else {
+        // Not enough movement: Snap back to current
+        goToScreen(currentIndex);
+    }
+});
