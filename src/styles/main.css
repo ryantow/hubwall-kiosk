@@ -5,7 +5,7 @@
   --view-height: 1630px;
   --cap1-blue: #a0d8e9; /* Sky Blue  */
   --cap1-navy: #013D5B; /* dark blue */
-  --cap1-green: #8ca74d; /* Green Buttons [cite: 7, 13] */
+  --cap1-green: #8ca74d; /* Green Buttons */
 }
 
 /* Set global text color */
@@ -45,7 +45,7 @@ body {
 .app-container {
   width: 3840px;
   height: 2160px;
-  background-color: var(--cap1-blue); /* This should show the blue now */
+  background-color: var(--cap1-blue);
   position: relative;
 }
 
@@ -56,8 +56,8 @@ body {
   left: var(--frame-offset-left);
   width: var(--view-width);
   height: var(--view-height);
-  overflow: visible; /* Changed from hidden to visible for dev - should be visible for final */
-  outline: 2px dashed rgba(85, 85, 85, 0.513); /* Semi-visible guide for dev */
+  overflow: visible; 
+  outline: 2px dashed rgba(85, 85, 85, 0.513); 
   z-index: 9999;
 }
 
@@ -65,7 +65,6 @@ body {
   display: flex;
   width: calc(var(--view-width) * 7);
   height: 100%;
-  /* This math is critical: */
   transform: translateX(calc(var(--current-index, 0) * -1 * var(--view-width)));
   transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
@@ -77,11 +76,11 @@ body {
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Vertical Center */
-    align-items: center;     /* Horizontal Center */
-    text-align: center;      /* Ensures text lines wrap centered */
+    justify-content: center; 
+    align-items: center;     
+    text-align: center;      
     position: relative;
-    padding: 0 200px;        /* Side gutters so text doesn't hit the frame */
+    padding: 0 200px;        
     box-sizing: border-box;
 }
 
@@ -92,7 +91,7 @@ body {
     height: 810px;
     border-radius: 40px;
     display: flex;
-    padding: 12px; /* This creates your 12px inset for the map */
+    padding: 12px; 
     gap: 60px;
     align-items: center;
     box-sizing: border-box;
@@ -101,14 +100,11 @@ body {
 
 /* Map Inset Container */
 .map-container {
-    /* To maintain the 786px visual height with a 12px inset: 
-       810px (total) - 24px (top+bottom padding) = 786px height */
     height: 786px; 
-    width: auto; /* Width will be determined by the image ratio */
-    aspect-ratio: 922 / 1024; /* Based on your visual map dimensions */
-    
-    background: white; /* Behind the transparency */
-    border-radius: 28px; /* Map rounded corners */
+    width: auto; 
+    aspect-ratio: 922 / 1024; 
+    background: white; 
+    border-radius: 28px; 
     overflow: hidden; 
     position: relative;
     display: flex;
@@ -118,46 +114,33 @@ body {
 
 /* The 1024x1024 PNG with Transparency */
 #dynamic-map {
-    /* Since the image is 1024x1024 but the container is 786px tall, 
-       we scale the image to fill the container height */
     height: 100%; 
     width: auto;
-    object-fit: contain; /* Ensures the 922w fits correctly */
+    object-fit: contain; 
 }
 
 /* Right Side Layout */
 .cta-details {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Keeps the whole group centered in the box */
+    justify-content: center; 
     flex: 1;
     text-align: left;
 }
 
-/* 2. Shoving the Headline Up & Creating the Gap */
 .cta-details h2.call-to-action {
-    /* Pulls the text up 60px higher than the natural center */
     margin-top: -80px; 
-    
-    /* Opens the vertical air between headline and the first QR */
     margin-bottom: 200px; 
-    
     font-size: 85px;
     text-align: left;
     padding: 0;
 }
 
-/* 3. Keeping the QR Stack Inset & Spaced */
 .qr-stack {
     display: flex;
     flex-direction: column;
-    
-    /* Pushes the QRs right to create that nested look */
     padding-left: 85px; 
-    
-    /* Spacing between the two QR line items */
     gap: 70px; 
-    
     width: 100%;
 }
 
@@ -172,114 +155,92 @@ body {
     height: 150px;
 }
 
-
 /* --- UNIVERSAL CONTENT LAYOUT (Screens 1-6) --- */
 .content-centered {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Anchor to top for ADA consistency */
+    justify-content: flex-start; 
     align-items: center;
     height: 100%;
     width: 100%;
     box-sizing: border-box;
-    
-    /* Standardized Top-Down baseline for all content screens */
     padding-top: 450px; 
 }
 
 /* --- SCREEN 0 OVERRIDE (The Hero) --- */
 #screen-0 .content-centered {
-    /* If the design for Screen 0 has the text sitting lower or higher */
     padding-top: 350px; 
 }
 
 /* --- BUTTON POSITIONING (ADA Critical) --- */
-/* By setting a top margin on the button, you ensure it sits at the 
-   exact same "reach height" across the entire installation */
 .btn-learn-more {
-    margin-top: auto;      /* Pushes button to the bottom area */
-    margin-bottom: 200px;  /* Locks it exactly X pixels from the "floor" */
+    margin-top: auto;      
+    margin-bottom: 200px;  
 }
 
 /* --- HORIZONTAL LAYOUT UTILITY --- */
 .horizontal-row {
     display: flex;
-    flex-direction: row; /* Forces side-by-side layout */
-    align-items: center; /* Vertically centers the text against the image */
-    justify-content: center; /* Centers the whole group on the screen */
-    
-    /* ADJUST THIS: This is the exact spacing between the QR and the text */
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: center; 
     gap: 40px; 
-    
     width: 100%;
-    margin-top: 40px; /* Space from the element above it */
+    margin-top: 40px; 
 }
 
-/* Specific sizing for the QR Code inside a row */
 .qr-image {
-    width: 80px; /* Or whatever pixel size your design calls for */
+    width: 80px; 
     height: 80px;
-    flex-shrink: 0; /* Prevents the browser from squishing the QR code */
+    flex-shrink: 0; 
 }
 
-/* Container for the text side so we can stack multiple lines if needed */
 .row-text-block {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Keeps text left-aligned relative to the QR code */
+    align-items: flex-start; 
     text-align: left;
 }
 
-/* This targets any p tags inside your row to ensure they don't "sag" */
 .row-text-block p {
     margin-top: 0;
     margin-bottom: 0;
-    line-height: 1; /* Helps keep the "optical" center tight */
+    line-height: 1; 
 }
-
 
 /* --- TYPOGRAPHY UTILITIES & SCREEN 1-6 STYLES --- */
 .headline-bold, .headline-outline {
-    font-size: 200px; /* Main text hero text on welcome screen */
+    font-size: 200px; 
     margin: 0;
 }
 
 .btn-learn-more {
-    /* 1. Size & Shape */
     width: 795px;       
     height: 230px;        
     border-radius: 80px;  
-
-    /* 2. Colors & Typography */
     background-color: var(--cap1-green); 
     color: white !important;
     font-family: 'Optimist', sans-serif;
     font-weight: 600; 
-    font-size: 54px;      /* Large, legible text */
+    font-size: 54px;      
     text-transform: uppercase;
     letter-spacing: 2px;
-
-    /* 3. Layout & Alignment */
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 80px;     /* Space below the body text */
+    margin-top: 80px;     
     border: none;
     cursor: pointer;
-
-    /* 4. Interaction Cleanup */
     outline: none;
     -webkit-tap-highlight-color: transparent;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-/* Tactile feedback for the touch screen */
 .btn-learn-more:active {
     transform: scale(0.96);
-    background-color: #7a9342; /* Slightly darker green on press */
+    background-color: #7a9342; 
 }
-
 
 .svg-layer {
     position: absolute;
@@ -287,15 +248,15 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Sits behind the text */
-    pointer-events: none; /* Touches go "through" to the buttons */
+    z-index: -1; 
+    pointer-events: none; 
     display: flex;
-    align-items: flex-end; /* Anchors buildings to the floor */
+    align-items: flex-end; 
     justify-content: space-around;
 }
 
 .building-svg {
-    height: 600px; /* Scale based on 4K height */
+    height: 600px; 
     width: auto;
 }
 
@@ -313,7 +274,7 @@ body {
 .nav-dots {
     display: flex;
     gap: 30px;
-    background: none; /* Removed the pill background */
+    background: none; 
     padding: 0;
 }
 
@@ -321,13 +282,13 @@ body {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    /* Inactive State: Solid Navy */
     background-color: var(--cap1-navy);
     border: 3px solid var(--cap1-navy); 
     cursor: pointer;
     transition: all 0.3s ease;
     outline: none;
-    -webkit-tap-highlight-color: transparent; /* Specifically for touch-based Chromium */
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent; 
 }
 
 .dot:focus {
@@ -336,32 +297,27 @@ body {
 }
 
 .dot.active {
-    /* Active State: Outline only */
     background-color: transparent;
     transform: scale(1.2);
 }
 
 /* Nav arrows */
 .nav-arrow {
-  
     width: 30px; 
     height: 30px;
-    
-    /* Increase thickness from 6px to 12px for better "weight" */
     border-top: 12px solid var(--cap1-navy);
     border-right: 12px solid var(--cap1-navy);
     cursor: pointer;
     transition: opacity 0.3s ease, transform 0.2s ease;
     outline: none;
     -webkit-tap-highlight-color: transparent;
+    pointer-events: auto; 
 }
 
-/* Optional: Add a little "press" feedback for the touch screen */
 .nav-arrow:active {
-    transform: scale(0.9) rotate(var(--rotation)); /* Keeps the direction while shrinking */
+    transform: scale(0.9) rotate(var(--rotation)); 
 }
 
-/* Update these to ensure the rotation doesn't conflict with the active state */
 .left-arrow { 
     transform: rotate(-135deg); 
     --rotation: -135deg;
@@ -373,7 +329,11 @@ body {
 }
 
 /* Utility classes for JS to toggle */
-.hidden { opacity: 0; pointer-events: none; }
+/* IMPORTANT: Added !important tags to ensure arrows hide properly */
+.hidden { 
+    opacity: 0 !important; 
+    pointer-events: none !important; 
+}
 
 .scenery-container {
     position: absolute;
@@ -381,32 +341,21 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* Sits behind text content */
-    pointer-events: none; /* User touches pass through to buttons */
+    z-index: 1; 
+    pointer-events: none; 
 }
 
 .scenery-item {
     position: absolute;
     bottom: 0;
-    
-    /* Use the pixel values from Illustrator */
     width: var(--svg-w, auto);
     height: var(--svg-h, auto);
-    
-    /* Keep the X-offset for positioning */
     transform: translateX(var(--x-offset, 0));
-    
-    /* Ensure the browser treats the SVG as a sharp vector at 4K */
     image-rendering: auto;
 }
 
-.pos-left {
-    left: 0;
-}
-
-.pos-right {
-    right: 0;
-}
+.pos-left { left: 0; }
+.pos-right { right: 0; }
 
 /* ==========================================================================
    CONSOLIDATED SCREEN 6 - OPTICAL CENTER & HIGH-SHOVE FIX
@@ -418,16 +367,14 @@ body {
     height: 100%;
 }
 
-/* 1. Disclaimer vs Yellow Box Gap */
 #screen-6 .disclaimer {
     position: absolute;
-    top: 130px; /* As per your latest tweak */
+    top: 130px; 
     width: 100%;
     text-align: center;
     left: 0;
 }
 
-/* 2. The Yellow Card - 12px Map Inset Locked */
 #screen-6 .cta-card {
     position: absolute;
     top: 363px; 
@@ -435,43 +382,37 @@ body {
     transform: translateX(-50%);
     z-index: 100;
     display: flex;
-    align-items: flex-start; /* Keeps the map at the top 12px edge */
+    align-items: flex-start; 
     padding: 12px 20px 12px 12px; 
     gap: 120px;
     box-sizing: border-box;
 }
 
-/* 3. The Text Column - Shoving the headline high */
 #screen-6 .cta-details {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     text-align: left;
-    /* Reduced padding to shove "EXPLORE" as high as possible */
     padding-top: 10px; 
 }
 
-/* 4. The Headline - Precise Spacing */
 #screen-6 .cta-details h2.headline-bold {
     font-size: 66px !important;
     line-height: 1.1;
-    /* 10px top nudge, 60px gap to the first QR row */
     margin: 80px 0 120px 0 !important; 
     padding: 0 !important;
 }
 
-/* 5. THE QR STACK - Vertical Alignment Fix */
 #screen-6 .qr-stack {
     display: flex;
     flex-direction: column;
-    gap: 60px; /* Spacing between the two rows */
-    padding-left: 80px; /* Your "Step-In" spec */
+    gap: 60px; 
+    padding-left: 80px; 
 }
 
 #screen-6 .qr-item {
     display: flex;
     flex-direction: row;
-    /* THIS SNAPS TEXT TO THE EQUATOR: */
     align-items: center; 
     gap: 50px;
     margin: 0;
@@ -486,28 +427,13 @@ body {
 #screen-6 .qr-item .body-text {
     font-size: 60px !important;
     text-align: left;
-    /* THE SILVER BULLET: Stripping paragraph margins allows perfect centering */
     margin: 0 !important; 
     line-height: 1.1;
     padding: 0;
 }
 
-/* 6. Restart Button - Locked to 1140px */
-#screen-6 .btn-learn-more { 
-    position: absolute;
-    top: 1208px;
-    width: 448px;
-    height: 130px;
-    border-radius: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 30px !important;
-    z-index: 110;
-    margin: 0;
-}
-
 #diagnostic-menu {
-    position: fixed; /* Locked to the screen, not the wrapper */
+    position: fixed; 
     top: 20px;
     left: 20px;
     background: rgba(1, 61, 91, 0.9); 
@@ -515,11 +441,12 @@ body {
     padding: 15px 25px;
     border-radius: 8px;
     font-family: Arial, sans-serif;
-    font-size: 20px; /* Slightly smaller since it won't be scaled */
+    font-size: 20px; 
     z-index: 10000;
     pointer-events: none;
     border: 1px solid rgba(160, 216, 233, 0.5);
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    display: none;
 }
 
 .diag-label {
@@ -532,4 +459,89 @@ body {
 
 .diag-row {
     margin-bottom: 10px;
+}
+
+#dev-controls {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    display:none;
+}
+
+#dev-controls button {
+    background: #222;
+    color: #00ffcc; 
+    border: 1px solid #00ffcc;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: monospace;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+#dev-controls button:active {
+    background: #00ffcc;
+    color: #000;
+}
+
+#restart-button {
+    position: absolute;
+    top: 1208px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 448px;
+    height: 130px;
+    border-radius: 50px;
+    font-size: 30px !important;
+    margin: 0;
+    background-color: var(--cap1-green);
+    color: white !important;
+    z-index: 99999 !important; 
+    pointer-events: auto !important;
+    touch-action: manipulation;
+}
+
+#restart-button:active {
+    background-color: #7a9342; 
+    transform: translateX(-50%) scale(0.96);
+}
+
+#nav-container {
+    position: absolute;
+    bottom: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    gap: 30px;
+    z-index: 500; 
+    pointer-events: none; 
+}
+
+/* --- GLOBAL FDIC WATERMARK --- */
+#fdic-logo {
+    position: absolute;
+    left: 74px; /* Default: stays on the left for 0, 1, 2, and 4 */
+    bottom: 169px;
+    width: 131px;
+    height: 79px;
+    z-index: 8000; 
+    pointer-events: none; 
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+
+/* OVERRIDES: Move to the Right Side for screens 3, 5, and 6 */
+body[data-screen="3"] #fdic-logo,
+body[data-screen="5"] #fdic-logo,
+body[data-screen="6"] #fdic-logo {
+    left: auto;      /* Turns off the left anchor */
+    right: 74px;     /* Anchors it to the right */
 }

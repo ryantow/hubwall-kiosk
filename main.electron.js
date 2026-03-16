@@ -7,7 +7,9 @@ function createWindow() {
     fullscreen: true, // Kiosk mode
     frame: false,      // Removes the "Close/Min" buttons
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false,
+      nodeIntegrationInWorker: true
     }
   });
 

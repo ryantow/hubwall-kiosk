@@ -20,6 +20,16 @@
         <span id="diag-name">---</span>
     </div>
 </div>
+
+<div id="dev-controls" style="display: none;">
+    <button onclick="devCycleKiosk(-1)">◀ Prev</button>
+    
+    <button onclick="devResetKiosk()" style="color: #f2a900; border-color: #f2a900;">Reset</button>
+    
+    <button onclick="devRandomKiosk()">Random</button>
+    <button onclick="devCycleKiosk(1)">Next ▶</button>
+</div>
+
     <div id="scale-wrapper">
         <div class="app-container">
             <div class="safe-zone-viewport">
@@ -173,13 +183,16 @@
                                 </div>
                             </div>
 
-                            <button class="btn-learn-more" onclick="goToScreen(0)" style="font-size: 30px">RESTART</button>
+                            <button id="restart-button" class="btn-learn-more" style="font-size: 30px">RESTART</button>
                         </div>
                     </section>
 
 
 
                 </div>
+                
+                <img id="fdic-logo" src="src/assets/images/fdic_logo.png" alt="Member FDIC">
+                
                 <div id="nav-container" class="nav-ui-layer" style="display: none;">
                     <div class="nav-arrow left-arrow" onclick="navPrev()"></div>
 
