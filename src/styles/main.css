@@ -505,3 +505,31 @@ body {
     z-index: 110;
     margin: 0;
 }
+
+#diagnostic-menu {
+    position: fixed; /* Locked to the screen, not the wrapper */
+    top: 20px;
+    left: 20px;
+    background: rgba(1, 61, 91, 0.9); 
+    color: #a0d8e9;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 20px; /* Slightly smaller since it won't be scaled */
+    z-index: 10000;
+    pointer-events: none;
+    border: 1px solid rgba(160, 216, 233, 0.5);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.diag-label {
+    color: white;
+    font-size: 12px;
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 1px;
+}
+
+.diag-row {
+    margin-bottom: 10px;
+}
