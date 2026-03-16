@@ -1,0 +1,5 @@
+{
+  "kiosk_id": "MOA",
+  "tracking_url": "https://api.example.com/track",
+  "api_key": "hidden_key_here"
+}

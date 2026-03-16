@@ -149,3 +149,28 @@ function navPrev() {
 window.addEventListener('contextmenu', (e) => {
     e.preventDefault();
 }, false);
+
+async function loadKioskConfig() {
+    try {
+        // Fetch the config file (Electron allows fetching local files if configured)
+        const response = await fetch('./config.json');
+        const config = await response.json();
+
+        // 1. Update the Map Image
+        const mapImg = document.getElementById('dynamic-map');
+        if (mapImg) {
+            // Assumes images follow naming pattern: H_MAP_KIOSKID.png
+            mapImg.src = `src/assets/images/maps/H_MAP_${config.kiosk_id}.png`;
+        }
+
+        // 2. Store config globally for later (Data Tracking)
+        window.KioskSettings = config; 
+        console.log(`Kiosk ${config.kiosk_id} Ready.`);
+
+    } catch (err) {
+        console.error("Config load failed. Falling back to default map.", err);
+    }
+}
+
+// Run this when the app starts
+window.addEventListener('DOMContentLoaded', loadKioskConfig);

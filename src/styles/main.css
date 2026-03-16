@@ -1,5 +1,5 @@
 :root {
-  --frame-offset-top: 455px;
+  --frame-offset-top: 528px;
   --frame-offset-left: 620px;
   --view-width: 2600px;
   --view-height: 1630px;
@@ -85,16 +85,162 @@ body {
     box-sizing: border-box;
 }
 
-.content-centered {
-    width: 100%;
+/* The Main Yellow Box (1898x810) */
+.cta-card {
+    background-color: #d2cd08;
+    width: 1898px; 
+    height: 810px;
+    border-radius: 40px;
     display: flex;
-    flex-direction: column;
+    padding: 12px; /* This creates your 12px inset for the map */
+    gap: 60px;
     align-items: center;
-    justify-content: center;
+    box-sizing: border-box;
+    position: relative;
 }
 
+/* Map Inset Container */
+.map-container {
+    /* To maintain the 786px visual height with a 12px inset: 
+       810px (total) - 24px (top+bottom padding) = 786px height */
+    height: 786px; 
+    width: auto; /* Width will be determined by the image ratio */
+    aspect-ratio: 922 / 1024; /* Based on your visual map dimensions */
+    
+    background: white; /* Behind the transparency */
+    border-radius: 28px; /* Map rounded corners */
+    overflow: hidden; 
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* The 1024x1024 PNG with Transparency */
+#dynamic-map {
+    /* Since the image is 1024x1024 but the container is 786px tall, 
+       we scale the image to fill the container height */
+    height: 100%; 
+    width: auto;
+    object-fit: contain; /* Ensures the 922w fits correctly */
+}
+
+/* Right Side Layout */
+.cta-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Keeps the whole group centered in the box */
+    flex: 1;
+    text-align: left;
+}
+
+/* 2. Shoving the Headline Up & Creating the Gap */
+.cta-details h2.call-to-action {
+    /* Pulls the text up 60px higher than the natural center */
+    margin-top: -80px; 
+    
+    /* Opens the vertical air between headline and the first QR */
+    margin-bottom: 200px; 
+    
+    font-size: 85px;
+    text-align: left;
+    padding: 0;
+}
+
+/* 3. Keeping the QR Stack Inset & Spaced */
+.qr-stack {
+    display: flex;
+    flex-direction: column;
+    
+    /* Pushes the QRs right to create that nested look */
+    padding-left: 85px; 
+    
+    /* Spacing between the two QR line items */
+    gap: 70px; 
+    
+    width: 100%;
+}
+
+.qr-item {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.qr-mini {
+    width: 150px;
+    height: 150px;
+}
+
+
+/* --- UNIVERSAL CONTENT LAYOUT (Screens 1-6) --- */
+.content-centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Anchor to top for ADA consistency */
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    
+    /* Standardized Top-Down baseline for all content screens */
+    padding-top: 450px; 
+}
+
+/* --- SCREEN 0 OVERRIDE (The Hero) --- */
+#screen-0 .content-centered {
+    /* If the design for Screen 0 has the text sitting lower or higher */
+    padding-top: 350px; 
+}
+
+/* --- BUTTON POSITIONING (ADA Critical) --- */
+/* By setting a top margin on the button, you ensure it sits at the 
+   exact same "reach height" across the entire installation */
+.btn-learn-more {
+    margin-top: auto;      /* Pushes button to the bottom area */
+    margin-bottom: 200px;  /* Locks it exactly X pixels from the "floor" */
+}
+
+/* --- HORIZONTAL LAYOUT UTILITY --- */
+.horizontal-row {
+    display: flex;
+    flex-direction: row; /* Forces side-by-side layout */
+    align-items: center; /* Vertically centers the text against the image */
+    justify-content: center; /* Centers the whole group on the screen */
+    
+    /* ADJUST THIS: This is the exact spacing between the QR and the text */
+    gap: 40px; 
+    
+    width: 100%;
+    margin-top: 40px; /* Space from the element above it */
+}
+
+/* Specific sizing for the QR Code inside a row */
+.qr-image {
+    width: 80px; /* Or whatever pixel size your design calls for */
+    height: 80px;
+    flex-shrink: 0; /* Prevents the browser from squishing the QR code */
+}
+
+/* Container for the text side so we can stack multiple lines if needed */
+.row-text-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Keeps text left-aligned relative to the QR code */
+    text-align: left;
+}
+
+/* This targets any p tags inside your row to ensure they don't "sag" */
+.row-text-block p {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1; /* Helps keep the "optical" center tight */
+}
+
+
+/* --- TYPOGRAPHY UTILITIES & SCREEN 1-6 STYLES --- */
 .headline-bold, .headline-outline {
-    font-size: 180px; /* Huge for 4K visibility */
+    font-size: 200px; /* Main text hero text on welcome screen */
     margin: 0;
 }
 
@@ -262,3 +408,100 @@ body {
     right: 0;
 }
 
+/* ==========================================================================
+   CONSOLIDATED SCREEN 6 - OPTICAL CENTER & HIGH-SHOVE FIX
+   ========================================================================== */
+
+#screen-6 .content-centered {
+    position: relative;
+    padding-top: 0;
+    height: 100%;
+}
+
+/* 1. Disclaimer vs Yellow Box Gap */
+#screen-6 .disclaimer {
+    position: absolute;
+    top: 130px; /* As per your latest tweak */
+    width: 100%;
+    text-align: center;
+    left: 0;
+}
+
+/* 2. The Yellow Card - 12px Map Inset Locked */
+#screen-6 .cta-card {
+    position: absolute;
+    top: 363px; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    align-items: flex-start; /* Keeps the map at the top 12px edge */
+    padding: 12px 20px 12px 12px; 
+    gap: 120px;
+    box-sizing: border-box;
+}
+
+/* 3. The Text Column - Shoving the headline high */
+#screen-6 .cta-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+    /* Reduced padding to shove "EXPLORE" as high as possible */
+    padding-top: 10px; 
+}
+
+/* 4. The Headline - Precise Spacing */
+#screen-6 .cta-details h2.headline-bold {
+    font-size: 66px !important;
+    line-height: 1.1;
+    /* 10px top nudge, 60px gap to the first QR row */
+    margin: 80px 0 120px 0 !important; 
+    padding: 0 !important;
+}
+
+/* 5. THE QR STACK - Vertical Alignment Fix */
+#screen-6 .qr-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 60px; /* Spacing between the two rows */
+    padding-left: 80px; /* Your "Step-In" spec */
+}
+
+#screen-6 .qr-item {
+    display: flex;
+    flex-direction: row;
+    /* THIS SNAPS TEXT TO THE EQUATOR: */
+    align-items: center; 
+    gap: 50px;
+    margin: 0;
+}
+
+#screen-6 .qr-item .qr-mini {
+    width: 150px;
+    height: 150px;
+    flex-shrink: 0;
+}
+
+#screen-6 .qr-item .body-text {
+    font-size: 60px !important;
+    text-align: left;
+    /* THE SILVER BULLET: Stripping paragraph margins allows perfect centering */
+    margin: 0 !important; 
+    line-height: 1.1;
+    padding: 0;
+}
+
+/* 6. Restart Button - Locked to 1140px */
+#screen-6 .btn-learn-more { 
+    position: absolute;
+    top: 1208px;
+    width: 448px;
+    height: 130px;
+    border-radius: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 30px !important;
+    z-index: 110;
+    margin: 0;
+}
