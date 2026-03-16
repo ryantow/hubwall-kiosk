@@ -39,6 +39,8 @@ body {
   align-items: center;
   height: 100vh;
   overflow: hidden;
+  -webkit-user-select: none; 
+  user-select: none;
 }
 
 /* The 4K Canvas */
@@ -335,6 +337,10 @@ body {
     pointer-events: none !important; 
 }
 
+/* ==========================================
+   SCENERY & CLOUDS
+   ========================================== */
+
 .scenery-container {
     position: absolute;
     bottom: 0;
@@ -356,6 +362,68 @@ body {
 
 .pos-left { left: 0; }
 .pos-right { right: 0; }
+
+.cloud-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2; /* Keeps them behind the UI and Buildings */
+    pointer-events: none; /* Touches pass right through */
+}
+
+/* Master Cloud Class */
+.cloud {
+    position: absolute;
+    /* We use variables so each cloud can be scaled instantly */
+    width: var(--cloud-w, 635px);
+    height: var(--cloud-h, 289px);
+    
+    /* Position by their true center point */
+    left: var(--cloud-x);
+    top: var(--cloud-y);
+    transform: translate(-50%, -50%);
+}
+
+/* Cloud 1 (X: 5917, Y: 747 in Illustrator) */
+
+#cloud-1 {
+    --cloud-x: 5297px; /* 5917 - 620 offset */
+    --cloud-y: 219px;  /* 747 - 528 offset */
+
+/* Cloud 2 (8633, 1750 | 530x241) */
+}
+#cloud-2 {
+    --cloud-w: 530px;
+    --cloud-h: 241px;
+    --cloud-x: 8013px;
+    --cloud-y: 1222px; 
+}
+
+/* Cloud 3 (11482, 611 | 590x269) */
+#cloud-3 {
+    --cloud-w: 590px;
+    --cloud-h: 269px;
+    --cloud-x: 10862px;
+    --cloud-y: 83px; 
+}
+
+/* Cloud 4 (12909, 1530 | 357x162) */
+#cloud-4 {
+    --cloud-w: 357px;
+    --cloud-h: 162px;
+    --cloud-x: 12789px;
+    --cloud-y: 802px; 
+}
+
+/* Cloud 5 (15404, 813 | 618x282) */
+#cloud-5 {
+    --cloud-w: 618px;
+    --cloud-h: 282px;
+    --cloud-x: 15375px;
+    --cloud-y: 285px; 
+}
 
 /* ==========================================================================
    CONSOLIDATED SCREEN 6 - OPTICAL CENTER & HIGH-SHOVE FIX

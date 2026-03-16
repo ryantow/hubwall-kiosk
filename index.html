@@ -10,31 +10,39 @@
 </head>
 
 <body>
-          <div id="diagnostic-menu">
-    <div class="diag-row">
-        <span class="diag-label">Kiosk ID</span>
-        <span id="diag-id">---</span>
+    <div id="diagnostic-menu">
+        <div class="diag-row">
+            <span class="diag-label">Kiosk ID</span>
+            <span id="diag-id">---</span>
+        </div>
+        <div class="diag-row">
+            <span class="diag-label">Location</span>
+            <span id="diag-name">---</span>
+        </div>
     </div>
-    <div class="diag-row">
-        <span class="diag-label">Location</span>
-        <span id="diag-name">---</span>
-    </div>
-</div>
 
-<div id="dev-controls" style="display: none;">
-    <button onclick="devCycleKiosk(-1)">◀ Prev</button>
-    
-    <button onclick="devResetKiosk()" style="color: #f2a900; border-color: #f2a900;">Reset</button>
-    
-    <button onclick="devRandomKiosk()">Random</button>
-    <button onclick="devCycleKiosk(1)">Next ▶</button>
-</div>
+    <div id="dev-controls" style="display: none;">
+        <button onclick="devCycleKiosk(-1)">◀ Prev</button>
+
+        <button onclick="devResetKiosk()" style="color: #f2a900; border-color: #f2a900;">Reset</button>
+
+        <button onclick="devRandomKiosk()">Random</button>
+        <button onclick="devCycleKiosk(1)">Next ▶</button>
+    </div>
 
     <div id="scale-wrapper">
         <div class="app-container">
             <div class="safe-zone-viewport">
 
                 <div id="ribbon" class="ribbon" style="--current-index: 0;">
+
+                   <div class="cloud-layer">
+                        <img src="src/assets/images/cloud.svg" class="cloud" id="cloud-1" alt="">
+                        <img src="src/assets/images/cloud.svg" class="cloud" id="cloud-2" alt="">
+                        <img src="src/assets/images/cloud.svg" class="cloud" id="cloud-3" alt="">
+                        <img src="src/assets/images/cloud.svg" class="cloud" id="cloud-4" alt="">
+                        <img src="src/assets/images/cloud.svg" class="cloud" id="cloud-5" alt="">
+                    </div>
 
                     <section class="screen" id="screen-0">
                         <div class="scenery-container">
@@ -125,7 +133,7 @@
                                 you need it―from Capital One locations to partner<br>
                                 ATMs inside Walgreens, 7-Eleven and other<br>
                                 participating stores.</p>
-                            <p class="disclaimer" >
+                            <p class="disclaimer">
                                 As of August 21, 2025, there are at least 1,260 Capital One ATMs, 35,000 MoneyPass® ATMs
                                 and 40,000<br>
                                 Allpoint® ATMs. The Capital One ATM network offers Capital One checking customers free
@@ -159,12 +167,16 @@
                                 style="--x-offset: 470px;--svg-w: 776px; --svg-h: 1267px;">
                         </div>
                         <div class="content-centered">
-                            <p class="disclaimer" style="font-size: 32px; margin-top: 40px;">Smartphone needed to scan QR code. Check with your service provider for details on specific fees and charges. Routine or unscheduled<br>
-                            maintenance may impact accessibility. Products and services are offered by Capital One, N.A., Member FDIC. © 2026 Capital One.</p>
+                            <p class="disclaimer" style="font-size: 32px; margin-top: 40px;">Smartphone needed to scan
+                                QR code. Check with your service provider for details on specific fees and charges.
+                                Routine or unscheduled<br>
+                                maintenance may impact accessibility. Products and services are offered by Capital One,
+                                N.A., Member FDIC. © 2026 Capital One.</p>
 
                             <div class="cta-card">
                                 <div class="map-container">
-                                    <img id="dynamic-map" src="src/assets/images/maps/map_placeholder.png" alt="Local Map">
+                                    <img id="dynamic-map" src="src/assets/images/maps/map_placeholder.png"
+                                        alt="Local Map">
                                 </div>
 
                                 <div class="cta-details">
@@ -173,11 +185,13 @@
                                     <div class="qr-stack">
                                         <div class="qr-item">
                                             <img src="src/assets/images/QR_code_FPO.png" class="qr-mini">
-                                            <p class="body-text" style="font-size: 60px;">Explore the map on<br>your phone browser</p>
+                                            <p class="body-text" style="font-size: 60px;">Explore the map on<br>your
+                                                phone browser</p>
                                         </div>
                                         <div class="qr-item">
                                             <img src="src/assets/images/QR_code_FPO.png" class="qr-mini">
-                                            <p class="body-text" style="font-size: 60px">Download the<br>Capital One app</p>
+                                            <p class="body-text" style="font-size: 60px">Download the<br>Capital One app
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -190,9 +204,9 @@
 
 
                 </div>
-                
+
                 <img id="fdic-logo" src="src/assets/images/fdic_logo.png" alt="Member FDIC">
-                
+
                 <div id="nav-container" class="nav-ui-layer" style="display: none;">
                     <div class="nav-arrow left-arrow" onclick="navPrev()"></div>
 
