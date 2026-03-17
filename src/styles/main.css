@@ -59,7 +59,7 @@ body {
   width: var(--view-width);
   height: var(--view-height);
   overflow: visible; 
-  outline: 2px dashed rgba(85, 85, 85, 0.513); 
+  outline: 0px dashed rgba(85, 85, 85, 0.513); 
   z-index: 9999;
 }
 

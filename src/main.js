@@ -42,13 +42,28 @@ window.addEventListener('DOMContentLoaded', () => {
         startBtn.addEventListener('click', () => goToScreen(1));
     }
 
-    // --- RESTART BUTTON (SCREEN 6) ---
+// --- RESTART BUTTON (SCREEN 6) ---
     if (restartBtn) {
-        const handleRestart = (e) => {
+        const handleRestart = async (e) => {
             e.stopPropagation(); 
             e.stopImmediatePropagation();
             if (e.cancelable) e.preventDefault();
             
+            try {
+                // 1. Log the explicit restart click
+                if (typeof logRestartClick === 'function') {
+                    await logRestartClick();
+                }
+                
+                // 2. Log the session as successfully completed
+                if (typeof endSession === 'function') {
+                    await endSession(false); 
+                }
+            } catch (err) {
+                console.error("Analytics fetch failed, resetting anyway:", err);
+            }
+
+            // 3. Navigate back to attractor
             goToScreen(0);
         };
 
@@ -126,7 +141,21 @@ function goToScreen(index) {
     const rightArrow = document.querySelector('.right-arrow');
 
     console.log(`Navigating to screen: ${index}`);
+    
+    // --- METRICS: TRACK START & DEPTH ---
+    const previousIndex = currentIndex;
     currentIndex = index;
+
+    if (previousIndex === 0 && currentIndex > 0) {
+        // User left the attractor screen
+        if (typeof startSession === 'function') startSession();
+    }
+    
+    if (currentIndex > 0) {
+        // Log how far into the ribbon they are looking
+        if (typeof updateScreenDepth === 'function') updateScreenDepth(currentIndex);
+    }
+    // ------------------------------------
 
     document.body.setAttribute('data-screen', currentIndex);
 
@@ -155,39 +184,44 @@ function goToScreen(index) {
 // 4. CONFIG & EXTERNAL ASSETS
 async function loadKioskConfig() {
     try {
-        const fs = require('fs');
-        const path = require('path');
+        // Use browser-safe fetch instead of Node.js 'require'
+        const response = await fetch('./config.json');
         
-        let configPath = path.join(path.dirname(process.execPath), 'config.json');
-        
-        if (!fs.existsSync(configPath)) {
-            console.log("[Dev Mode] Prod config not found. Using local project config.");
-            configPath = path.join(process.cwd(), 'config.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
         
-        const data = fs.readFileSync(configPath, 'utf8');
-        const config = JSON.parse(data);
+        const config = await response.json();
         
-        const id = config.kiosk_id;
+        // Handle both lowercase (original) or uppercase (new) key formats
+        const id = config.kiosk_id || config.KIOSK_ID; 
         window.KioskSettings = config; 
 
+        // Update the dynamic map image
         const mapImg = document.getElementById('dynamic-map');
-        if (mapImg) mapImg.src = `src/assets/images/maps/H_MAP_${id}.png`;
+       const mapCode = id.replace('hubwall_', ''); // strips the prefix just for the image
+if (mapImg) mapImg.src = `src/assets/images/maps/H_MAP_${mapCode}.png`;
         
+        // Update diagnostic UI
         const diagId = document.getElementById('diag-id');
         const diagName = document.getElementById('diag-name');
         
         if (diagId) diagId.textContent = id;
-        if (diagName) diagName.textContent = KIOSK_LOCATIONS[id] || "Unknown Location";
+        if (diagName && typeof KIOSK_LOCATIONS !== 'undefined') {
+            diagName.textContent = KIOSK_LOCATIONS[id] || "Unknown Location";
+        }
 
+        // Retain dev key logic
         if (typeof kioskKeys !== 'undefined') {
             const realIndex = kioskKeys.indexOf(id);
             if (realIndex !== -1) devKioskIndex = realIndex;
         }
 
         console.log("System Ready: ", id);
+        return config; 
+
     } catch (err) { 
-        console.error("Critical: Could not read config.json at either path.", err); 
+        console.error("Critical: Could not read config.json via fetch.", err); 
     }
 }
 
@@ -202,7 +236,21 @@ function setScale() {
 function resetIdleTimer() {
     clearTimeout(idleTimer);
     if (currentIndex !== 0) {
-        idleTimer = setTimeout(() => goToScreen(0), 20000); // 20 sec idle
+        idleTimer = setTimeout(async () => {
+            console.log("Inactivity timeout triggered.");
+            
+            if (typeof endSession === 'function') {
+                try {
+                    // THE FIX: If they are on screen 6, it's a Complete. Otherwise, Abandon.
+                    const isAbandoned = (currentIndex !== 6);
+                    await endSession(isAbandoned); 
+                } catch (err) {
+                    console.error("Analytics fetch failed, resetting anyway:", err);
+                }
+            }
+            
+            goToScreen(0);
+        }, 20000); // 20 sec idle
     }
 }
 
