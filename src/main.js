@@ -23,7 +23,7 @@ const KIOSK_LOCATIONS = {
     'STONEBRIAR': 'Stonebriar Centre', 'UNION-SQ': 'Union Square (NYC)', 'UNION-STATION': 'Union Station LoDo',
     'UPTOWN-DAL': 'Uptown Dallas (West Village)', 'VALLEY-FAIR': 'Valley Fair', 'VICTORIA-GARDENS': 'Victoria Gardens',
     'WEST-COUNTY': 'West County', 'WOODLANDS': 'Woodlands Mall', 'WYNNEWOOD': 'Wynnewood Village',
-    'DT-AUSTIN': 'Downtown Austin', 'SCOTTSDALE': 'Scottsdale', 'STATE-STREET': 'State Street'
+    'DT-AUSTIN': 'Downtown Austin', 'SCOTTSDALE': 'Scottsdale', 'STATE-STREET': 'State Street','WEST-TOWN': 'West Town Mall'
 };
 
 // 2. INITIALIZATION
