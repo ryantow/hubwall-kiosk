@@ -6,6 +6,7 @@
 // 1. GLOBAL STATE & SPECS
 let currentIndex = 0;
 let idleTimer;
+let countdownInterval; // 
 const viewWidth = 2600; // MUST MATCH CSS --view-width
 let isDragging = false;
 let startX = 0;
@@ -235,13 +236,41 @@ function setScale() {
 
 function resetIdleTimer() {
     clearTimeout(idleTimer);
+    clearInterval(countdownInterval); // Stop the 10s countdown if it's running
+    hideIdlePopup();                  // Hide popup if it was open
+
     if (currentIndex !== 0) {
-        idleTimer = setTimeout(async () => {
-            console.log("Inactivity timeout triggered.");
+        // Phase 1: Wait 40 seconds of inactivity
+        idleTimer = setTimeout(() => {
+            showIdlePopup();
+        }, 5000); // 40 seconds idle timeout that calls more time popup
+    }
+}
+
+function showIdlePopup() {
+    const overlay = document.getElementById('idle-overlay');
+    const countSpan = document.getElementById('idle-countdown');
+    if (!overlay || !countSpan) return;
+
+    let timeLeft = 10;
+    countSpan.textContent = timeLeft;
+    overlay.classList.add('visible'); // Triggers CSS fade & scale animations
+
+    // Phase 2: Start the 10 second countdown
+    countdownInterval = setInterval(async () => {
+        timeLeft--;
+        countSpan.textContent = timeLeft;
+
+        // If they run out of time
+        if (timeLeft <= 0) {
+            clearInterval(countdownInterval);
+            overlay.classList.remove('visible');
             
+            console.log("Inactivity timeout finalized.");
+            
+            // Execute the abandon/complete analytics payload
             if (typeof endSession === 'function') {
                 try {
-                    // THE FIX: If they are on screen 6, it's a Complete. Otherwise, Abandon.
                     const isAbandoned = (currentIndex !== 6);
                     await endSession(isAbandoned); 
                 } catch (err) {
@@ -249,8 +278,16 @@ function resetIdleTimer() {
                 }
             }
             
+            // Sweep back to the attractor loop
             goToScreen(0);
-        }, 20000); // 20 sec idle
+        }
+    }, 1000); // 1 tick per second
+}
+
+function hideIdlePopup() {
+    const overlay = document.getElementById('idle-overlay');
+    if (overlay && overlay.classList.contains('visible')) {
+        overlay.classList.remove('visible');
     }
 }
 

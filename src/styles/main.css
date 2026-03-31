@@ -1,5 +1,5 @@
 :root {
-  --frame-offset-top: 528px;
+  --frame-offset-top: 550px;
   --frame-offset-left: 620px;
   --view-width: 2600px;
   --view-height: 1630px;
@@ -612,4 +612,73 @@ body[data-screen="5"] #fdic-logo,
 body[data-screen="6"] #fdic-logo {
     left: auto;      /* Turns off the left anchor */
     right: 74px;     /* Anchors it to the right */
+}
+
+/* ==========================================
+   IDLE TIMEOUT WARNING POPUP
+   ========================================== */
+
+#idle-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* We removed the background-color from here! */
+    z-index: 999999; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+/* This creates a massive white wash that bleeds way past the safe zone */
+#idle-overlay::before {
+    content: "";
+    position: absolute;
+    top: -2000px;
+    left: -2000px;
+    right: -2000px;
+    bottom: -2000px;
+    background-color: rgba(255, 255, 255, 0.25); /* 25% White Overlay */
+    z-index: -1; /* Keeps the wash behind the popup box */
+}
+
+/* Toggled by JS to fade in the overlay */
+#idle-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#idle-popup {
+    width: 900px;
+    height: 600px;
+    background-color: #eae5dd;
+    border: 12px solid #d2cd08;
+    border-radius: 60px;
+    margin-top: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 40px;
+    
+    /* Setup for the pop animation */
+    transform: scale(0.5);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy spring effect */
+}
+
+/* When overlay is visible, trigger the popup scale animation */
+#idle-overlay.visible #idle-popup {
+    transform: scale(1);
+}
+
+/* Override the global button radius and text size just for the popup */
+#continue-button {
+    border-radius: 30px; 
+    font-size: 30px; /* Default is 54px, tweak this number until it looks right! */
 }
