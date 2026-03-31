@@ -642,7 +642,7 @@ body[data-screen="6"] #fdic-logo {
     left: -2000px;
     right: -2000px;
     bottom: -2000px;
-    background-color: rgba(255, 255, 255, 0.25); /* 25% White Overlay */
+    background-color: rgba(255, 255, 255, 0.5); /* 50% White Overlay */
     z-index: -1; /* Keeps the wash behind the popup box */
 }
 
@@ -670,6 +670,34 @@ body[data-screen="6"] #fdic-logo {
     /* Setup for the pop animation */
     transform: scale(0.5);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy spring effect */
+}
+
+/* ==========================================
+   IDLE TIMEOUT COUNTDOWN ALIGNMENT
+   ========================================== */
+.countdown-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Space between the text and the number */
+    margin-bottom: 70px;
+    width: 100%;
+}
+
+.countdown-label {
+    font-size: 55px;
+    text-align: right;
+    margin: 0;
+}
+
+.countdown-number {
+    font-size: 55px;
+    text-align: left;
+    width: 70px; /* Fixed width stops the jitter when dropping from 10 to 9 */
+    font-variant-numeric: tabular-nums; /* Forces numbers to all be the exact same width if the font supports it */
+    margin: 0;
+    font-weight: bold; /* Optional: makes the number pop a bit more */
 }
 
 /* When overlay is visible, trigger the popup scale animation */

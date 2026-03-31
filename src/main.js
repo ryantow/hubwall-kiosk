@@ -243,7 +243,7 @@ function resetIdleTimer() {
         // Phase 1: Wait 40 seconds of inactivity
         idleTimer = setTimeout(() => {
             showIdlePopup();
-        }, 5000); // 40 seconds idle timeout that calls more time popup
+        }, 40000); // 40 seconds idle timeout that calls more time popup
     }
 }
 
