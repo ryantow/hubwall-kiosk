@@ -73,7 +73,7 @@ async function logRestartClick() {
   if (!currentSession.session_id || !config || !config.API_URL) return;
 
   try {
-    await fetch(`${config.API_URL}/session/restart_click`, {
+    await fetch(`${config.API_URL}/session/restart`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
