@@ -24,6 +24,9 @@ async function startSession() {
   currentSession.start_time = Date.now();
   const kioskId = config.KIOSK_ID || config.kiosk_id; 
   
+  // NEW: Generate the ID on the device instantly
+  currentSession.session_id = crypto.randomUUID().replace(/-/g, '').toUpperCase();
+  
   try {
     const response = await fetch(`${config.API_URL}/session/start`, {
       method: "POST",
@@ -31,12 +34,18 @@ async function startSession() {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${config.API_KEY}`
       },
-      body: JSON.stringify({ kiosk_id: kioskId, app_version: "1.0" })
+      // NEW: Pass the locally generated session_id in the payload
+      body: JSON.stringify({ 
+        kiosk_id: kioskId, 
+        session_id: currentSession.session_id, 
+        app_version: "1.0" 
+      })
     });
     
-    const data = await response.json();
-    currentSession.session_id = data.session_id;
-    console.log("Session started:", currentSession.session_id);
+    // We don't technically need to read the response data anymore since we made the ID,
+    // but it's good to ensure it succeeded.
+    if (!response.ok) throw new Error("Server rejected start session");
+    console.log("Session started (Local ID):", currentSession.session_id);
     
   } catch (error) {
     console.error("Failed to start session:", error);
@@ -85,10 +94,12 @@ async function endSession(isAbandoned = false) {
   if (!currentSession.session_id || !config || !config.API_URL) return;
   
   const totalClientMs = Date.now() - currentSession.start_time;
+  const kioskId = config.KIOSK_ID || config.kiosk_id; 
   
   // Package up the session data
   const payload = {
     session_id: currentSession.session_id,
+    kiosk_id: kioskId, // <--- NEW: Required by the new Python Upsert route
     client_ms: totalClientMs,
     meta: currentSession.meta
   };

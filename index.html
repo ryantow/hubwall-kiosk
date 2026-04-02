@@ -211,7 +211,10 @@
                 <div id="idle-overlay" class="hidden-overlay">
                     <div id="idle-popup">
                         <h2 class="headline-bold" style="font-size: 60px; margin-bottom: 20px;">DO YOU NEED MORE TIME?</h2>
-                        <p class="body-text" style="font-size: 50px; margin-bottom: 70px;  font-weight: 600;">Timer will reset in: <span id="idle-countdown">10</span></p>
+                        <div class="countdown-wrapper">
+                            <span class="body-text countdown-label">Timer will reset in:</span>
+                            <span id="idle-countdown" class="body-text countdown-number">10</span>
+                        </div>
                         <button id="continue-button" class="btn-learn-more" style="margin: 0; width: 300px; height: 145px;">CONTINUE</button>
                     </div>
                 </div>
