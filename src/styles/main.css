@@ -710,3 +710,24 @@ body[data-screen="6"] #fdic-logo {
     border-radius: 30px; 
     font-size: 30px; /* Default is 54px, tweak this number until it looks right! */
 }
+
+/* =======================================================
+   🚨 DEV ONLY: CALIBRATION OVERLAY (REMOVE BEFORE PROD) 🚨
+   ======================================================= */
+#calibration-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999999;       /* Forces it above absolutely everything else */
+    pointer-events: none;   /* CRITICAL: Allows touch swipes to pass through! */
+    opacity: 0.6;           /* Tweak this between 0.1 and 1 to see the UI underneath */
+}
+
+#calibration-overlay img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      /* Ensures the image stretches to fill the exact 4K frame */
+}
+/* ======================================================= */
