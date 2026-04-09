@@ -1,8 +1,8 @@
 :root {
-  --frame-offset-top: 550px;
-  --frame-offset-left: 620px;
-  --view-width: 2600px;
-  --view-height: 1630px;
+  --frame-offset-top: 500px;  /* THIS IS THE ALIGNMENT OF THE FRAME FROM THE TOP EDGE OF THE SCREEN */
+  --frame-offset-left: 620px;  /* THIS IS WHERE WE SET THE ALIGNMENT OF THE FRAME FROM THE LEFT EDGE OF THE SCREEN */
+  --view-width: 2600px;  /* VIEWABLE AREA WIDTH */
+  --view-height: 1630px;  /* VIEWABLE AREA HEIGHT */
   --cap1-blue: #a0d8e9; /* Sky Blue  */
   --cap1-navy: #013D5B; /* dark blue */
   --cap1-green: #8ca74d; /* Green Buttons */

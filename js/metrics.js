@@ -130,3 +130,21 @@ async function endSession(isAbandoned = false) {
     console.error("Failed to end session:", error);
   }
 }
+
+// Save to offline in case of network loss
+function saveToOfflineVault(endpoint, payload) {
+  // 1. Open the vault (get existing data or start a new array)
+  let vault = JSON.parse(localStorage.getItem('kiosk_offline_queue')) || [];
+  
+  // 2. Add the new failed request to the array
+  vault.push({
+    url: `${window.KioskSettings.API_URL}${endpoint}`,
+    payload: payload,
+    timestamp: Date.now()
+  });
+  
+  // 3. Lock the vault (save it back to localStorage)
+  localStorage.setItem('kiosk_offline_queue', JSON.stringify(vault));
+  console.log(`📡 Network down. Saved payload to offline vault. (Queue size: ${vault.length})`);
+}
+
