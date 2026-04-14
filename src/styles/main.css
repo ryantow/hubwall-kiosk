@@ -1,11 +1,11 @@
 :root {
-  --frame-offset-top: 500px;  /* THIS IS THE ALIGNMENT OF THE FRAME FROM THE TOP EDGE OF THE SCREEN */
-  --frame-offset-left: 620px;  /* THIS IS WHERE WE SET THE ALIGNMENT OF THE FRAME FROM THE LEFT EDGE OF THE SCREEN */
-  --view-width: 2600px;  /* VIEWABLE AREA WIDTH */
-  --view-height: 1630px;  /* VIEWABLE AREA HEIGHT */
-  --cap1-blue: #a0d8e9; /* Sky Blue  */
-  --cap1-navy: #013D5B; /* dark blue */
-  --cap1-green: #8ca74d; /* Green Buttons */
+  --frame-offset-top: 400px;
+  --frame-offset-left: 620px;
+  --view-width: 2600px;
+  --view-height: 1630px;
+  --cap1-blue: #a0d8e9;
+  --cap1-navy: #013D5B;
+  --cap1-green: #8ca74d;
 }
 
 /* Set global text color */
@@ -59,7 +59,7 @@ body {
   width: var(--view-width);
   height: var(--view-height);
   overflow: visible; 
-  outline: 0px dashed rgba(85, 85, 85, 0.513);  /* DEV: Visualize the viewport edges during development */
+  outline: 0px dashed rgba(85, 85, 85, 0.513);
   z-index: 9999;
 }
 
@@ -86,7 +86,7 @@ body {
     box-sizing: border-box;
 }
 
-/* The Main Yellow Box (1898x810) */
+/* The Main Yellow Box Default (Screens 1-5 fallback) */
 .cta-card {
     background-color: #d2cd08;
     width: 1898px; 
@@ -102,13 +102,13 @@ body {
 
 /* Map Inset Container */
 .map-container {
-    height: 786px; 
-    width: auto; 
-    aspect-ratio: 922 / 1024; 
+    height: 720px; 
+    width: 631px;
+    flex-shrink: 0; 
     background: white; 
     border-radius: 28px; 
     overflow: hidden; 
-    position: relative;
+    position: relative; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -157,7 +157,7 @@ body {
     height: 150px;
 }
 
-/* --- UNIVERSAL CONTENT LAYOUT (Screens 1-6) --- */
+/* --- UNIVERSAL CONTENT LAYOUT (Screens 1-5) --- */
 .content-centered {
     display: flex;
     flex-direction: column;
@@ -166,18 +166,112 @@ body {
     height: 100%;
     width: 100%;
     box-sizing: border-box;
-    padding-top: 450px; 
+    padding-top: 525px; /* <--- CHANGED FROM 400px: Drops all interior text to exactly 525px from top */
+}
+
+/* Force the headline to respect the exact 525px ceiling without invisible browser gaps */
+h1.small-headline {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* --- UNIVERSAL BODY TEXT (Screens 1-5) --- */
+.content-centered p.body-text {
+    font-size: 56px !important;  /* <--- DIAL 1: Enter the exact font size from Illustrator */
+    margin-top: 80px !important; /* <--- DIAL 2: The exact pixel gap from the bottom of the headline */
+    margin-bottom: 0;
+    line-height: 1.2;            /* Tweak this if the spacing between the lines of text is too tight/loose */
+}
+
+/* --- UNIVERSAL DISCLAIMER TEXT (Screens 1-5) --- */
+.content-centered p.disclaimer {
+    font-size: 31px !important;  /* <--- DIAL 1: Enter the exact font size */
+    margin-top: auto !important; /* Shoves the text all the way down to the floor */
+    margin-bottom: 60px !important; /* <--- DIAL 2: The exact pixel gap from the bottom of the screen */
+    line-height: 1.2;
+    text-align: center;
 }
 
 /* --- SCREEN 0 OVERRIDE (The Hero) --- */
 #screen-0 .content-centered {
-    padding-top: 350px; 
+    padding-top: 385px; 
 }
 
-/* --- BUTTON POSITIONING (ADA Critical) --- */
+#screen-0 .headline-outline {
+    margin-top: 60px; 
+}
+
+#screen-0 p.body-text {
+    margin-top: -45px !important; 
+}
+
+#screen-0-qr-row {
+    position: absolute;
+    top: 1065px;     
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;       
+    gap: 20px;       
+    align-items: center !important; 
+}
+
+#screen-0-qr-row .qr-image-small {
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+}
+
+#screen-0 #screen-0-qr-row p.qr-subtext {
+    font-size: 28px !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+}
+
+#screen-0-qr-row .row-text-block {
+    justify-content: center; 
+}
+
+#screen-0-qr-row .qr-subtext span {
+    text-decoration: underline;
+    text-underline-offset: 4px; 
+}
+
+#screen-0 #start-button {
+    position: absolute;
+    top: 1208px; 
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0; 
+}
+
+/* --- BUTTON POSITIONING --- */
 .btn-learn-more {
-    margin-top: auto;      
-    margin-bottom: 200px;  
+    width: 795px;       
+    height: 230px;        
+    border-radius: 80px;  
+    background-color: var(--cap1-green); 
+    color: white !important;
+    font-family: 'Optimist', sans-serif;
+    font-weight: 600; 
+    font-size: 54px;      
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;     
+    margin-bottom: 200px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-learn-more:active {
+    transform: scale(0.96);
+    background-color: #7a9342; 
 }
 
 /* --- HORIZONTAL LAYOUT UTILITY --- */
@@ -216,34 +310,6 @@ body {
     margin: 0;
 }
 
-.btn-learn-more {
-    width: 795px;       
-    height: 230px;        
-    border-radius: 80px;  
-    background-color: var(--cap1-green); 
-    color: white !important;
-    font-family: 'Optimist', sans-serif;
-    font-weight: 600; 
-    font-size: 54px;      
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 80px;     
-    border: none;
-    cursor: pointer;
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.btn-learn-more:active {
-    transform: scale(0.96);
-    background-color: #7a9342; 
-}
-
 .svg-layer {
     position: absolute;
     bottom: 0;
@@ -264,7 +330,7 @@ body {
 
 .nav-ui-layer {
     position: absolute;
-    bottom: 160px;
+    bottom: 117px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -330,8 +396,6 @@ body {
     --rotation: 45deg;
 }
 
-/* Utility classes for JS to toggle */
-/* IMPORTANT: Added !important tags to ensure arrows hide properly */
 .hidden { 
     opacity: 0 !important; 
     pointer-events: none !important; 
@@ -343,7 +407,7 @@ body {
 
 .scenery-container {
     position: absolute;
-    bottom: 0;
+    bottom: 0; 
     left: 0;
     width: 100%;
     height: 100%;
@@ -353,10 +417,10 @@ body {
 
 .scenery-item {
     position: absolute;
-    bottom: 0;
+    bottom: -130px;  
     width: var(--svg-w, auto);
     height: var(--svg-h, auto);
-    transform: translateX(var(--x-offset, 0));
+    transform: translate(var(--x-offset, 0), var(--y-offset, 0)); 
     image-rendering: auto;
 }
 
@@ -369,55 +433,41 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -2; /* Keeps them behind the UI and Buildings */
-    pointer-events: none; /* Touches pass right through */
+    z-index: -2; 
+    pointer-events: none; 
 }
 
-/* Master Cloud Class */
 .cloud {
     position: absolute;
-    /* We use variables so each cloud can be scaled instantly */
     width: var(--cloud-w, 635px);
     height: var(--cloud-h, 289px);
-    
-    /* Position by their true center point */
     left: var(--cloud-x);
     top: var(--cloud-y);
     transform: translate(-50%, -50%);
 }
 
-/* Cloud 1 (X: 5917, Y: 747 in Illustrator) */
-
 #cloud-1 {
-    --cloud-x: 5297px; /* 5917 - 620 offset */
-    --cloud-y: 219px;  /* 747 - 528 offset */
-
-/* Cloud 2 (8633, 1750 | 530x241) */
+    --cloud-x: 5297px; 
+    --cloud-y: 250px;  
 }
 #cloud-2 {
     --cloud-w: 530px;
     --cloud-h: 241px;
-    --cloud-x: 8013px;
-    --cloud-y: 1222px; 
+    --cloud-x: 8350px;
+    --cloud-y: 1282px; 
 }
-
-/* Cloud 3 (11482, 611 | 590x269) */
 #cloud-3 {
     --cloud-w: 590px;
     --cloud-h: 269px;
-    --cloud-x: 10862px;
+    --cloud-x: 11200px;
     --cloud-y: 83px; 
 }
-
-/* Cloud 4 (12909, 1530 | 357x162) */
 #cloud-4 {
     --cloud-w: 357px;
     --cloud-h: 162px;
-    --cloud-x: 12789px;
-    --cloud-y: 802px; 
+    --cloud-x: 12759px;
+    --cloud-y: 1062px; 
 }
-
-/* Cloud 5 (15404, 813 | 618x282) */
 #cloud-5 {
     --cloud-w: 618px;
     --cloud-h: 282px;
@@ -426,79 +476,105 @@ body {
 }
 
 /* ==========================================================================
-   CONSOLIDATED SCREEN 6 - OPTICAL CENTER & HIGH-SHOVE FIX
+   SCREEN 6 OVERRIDES (THE MASTER FIX)
    ========================================================================== */
 
+/* 1. Pull the content forward so it renders ON TOP of the trees */
 #screen-6 .content-centered {
     position: relative;
     padding-top: 0;
     height: 100%;
+    z-index: 10; 
 }
 
+/* 2. Pull the disclaimer text up so it doesn't get squished */
 #screen-6 .disclaimer {
     position: absolute;
-    top: 130px; 
+    top: 218px; /* <--- Dial this up/down to align the top text */
     width: 100%;
     text-align: center;
     left: 0;
-}
-
-#screen-6 .cta-card {
-    position: absolute;
-    top: 363px; 
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
-    display: flex;
-    align-items: flex-start; 
-    padding: 12px 20px 12px 12px; 
-    gap: 120px;
-    box-sizing: border-box;
-}
-
-#screen-6 .cta-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    text-align: left;
-    padding-top: 10px; 
-}
-
-#screen-6 .cta-details h2.headline-bold {
-    font-size: 66px !important;
-    line-height: 1.1;
-    margin: 80px 0 120px 0 !important; 
-    padding: 0 !important;
-}
-
-#screen-6 .qr-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 60px; 
-    padding-left: 80px; 
-}
-
-#screen-6 .qr-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center; 
-    gap: 50px;
     margin: 0;
 }
 
-#screen-6 .qr-item .qr-mini {
-    width: 150px;
-    height: 150px;
-    flex-shrink: 0;
+/* 3. Hoist the yellow card up, and lock the map to the left */
+#screen-6 .cta-card {
+    position: absolute;
+    top: 420px; /* <--- Dial this up/down to align the yellow box */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1738px;
+    height: 742px;
+    z-index: 100;
+    display: flex;
+    justify-content: flex-start; /* Forces the map hard left */
+    align-items: flex-start; 
+    padding: 11px; 
+    gap: 60px; /* <--- Dial this to slide the entire right column closer/further from the map */
+    box-sizing: border-box;
 }
 
-#screen-6 .qr-item .body-text {
-    font-size: 60px !important;
-    text-align: left;
-    margin: 0 !important; 
-    line-height: 1.1;
+/* 4. The strict right column scaffold */
+#screen-6 .cta-details {
+    position: relative; 
+    height: 786px;      
+    width: 808px;       
+    display: block;     
     padding: 0;
+    margin: 0;
 }
+
+/* 5. The absolute position coordinates for the text */
+#screen-6 .cta-details h2.headline-bold {
+    position: absolute;
+    top: 80px; 
+    left: 0;
+    width: 100%;
+    margin: 0 !important; 
+    padding: 0 !important;
+    font-size: 54px !important;
+    line-height: 1.1;
+    text-align: center; 
+}
+
+#screen-6 .qr-highlight-box {
+    position: absolute;
+    top: 270px; 
+    left: 80px; /* <--- Nudges ONLY the QR box right by 20px */
+    margin: 0 !important;
+    background-color: #d6d927;
+    width: 808px; 
+    height: 243px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 40px; 
+}
+
+#screen-6 .qr-highlight-box p.body-text {
+    font-size: 56px !important;
+    margin: 0 !important;
+    line-height: 1.1;
+    text-align: left;
+    transform: translateY(-5px); 
+}
+
+#screen-6 .cta-details > p.body-text {
+    position: absolute;
+    bottom: 120px; 
+    left: 0;
+    width: 100%;
+    margin: 0 !important;
+    font-size: 18px !important;
+    color: #013d5b !important;
+    text-align: center; 
+}
+
+/* ==========================================================================
+   UTILITIES, DEV MENU, DIAGNOSTICS & WATERMARKS
+   ========================================================================== */
 
 #diagnostic-menu {
     position: fixed; 
@@ -563,7 +639,7 @@ body {
 
 #restart-button {
     position: absolute;
-    top: 1208px; 
+    top: 800px; 
     left: 50%;
     transform: translateX(-50%);
     width: 448px;
@@ -585,7 +661,7 @@ body {
 
 #nav-container {
     position: absolute;
-    bottom: 160px;
+    bottom: 117px;
     left: 50%;
     transform: translateX(-50%);
     display: none;
@@ -597,7 +673,7 @@ body {
 /* --- GLOBAL FDIC WATERMARK --- */
 #fdic-logo {
     position: absolute;
-    left: 74px; /* Default: stays on the left for 0, 1, 2, and 4 */
+    left: 74px; 
     bottom: 169px;
     width: 131px;
     height: 79px;
@@ -610,8 +686,8 @@ body {
 body[data-screen="3"] #fdic-logo,
 body[data-screen="5"] #fdic-logo,
 body[data-screen="6"] #fdic-logo {
-    left: auto;      /* Turns off the left anchor */
-    right: 74px;     /* Anchors it to the right */
+    left: auto;      
+    right: 74px;     
 }
 
 /* ==========================================
@@ -624,7 +700,6 @@ body[data-screen="6"] #fdic-logo {
     left: 0;
     width: 100%;
     height: 100%;
-    /* We removed the background-color from here! */
     z-index: 999999; 
     display: flex;
     justify-content: center;
@@ -634,7 +709,6 @@ body[data-screen="6"] #fdic-logo {
     transition: opacity 0.4s ease;
 }
 
-/* This creates a massive white wash that bleeds way past the safe zone */
 #idle-overlay::before {
     content: "";
     position: absolute;
@@ -642,11 +716,10 @@ body[data-screen="6"] #fdic-logo {
     left: -2000px;
     right: -2000px;
     bottom: -2000px;
-    background-color: rgba(255, 255, 255, 0.5); /* 50% White Overlay */
-    z-index: -1; /* Keeps the wash behind the popup box */
+    background-color: rgba(255, 255, 255, 0.5); 
+    z-index: -1; 
 }
 
-/* Toggled by JS to fade in the overlay */
 #idle-overlay.visible {
     opacity: 1;
     pointer-events: auto;
@@ -666,10 +739,8 @@ body[data-screen="6"] #fdic-logo {
     text-align: center;
     box-sizing: border-box;
     padding: 40px;
-    
-    /* Setup for the pop animation */
     transform: scale(0.5);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy spring effect */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
 }
 
 /* ==========================================
@@ -680,7 +751,7 @@ body[data-screen="6"] #fdic-logo {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 15px; /* Space between the text and the number */
+    gap: 15px; 
     margin-bottom: 70px;
     width: 100%;
 }
@@ -694,21 +765,19 @@ body[data-screen="6"] #fdic-logo {
 .countdown-number {
     font-size: 55px;
     text-align: left;
-    width: 70px; /* Fixed width stops the jitter when dropping from 10 to 9 */
-    font-variant-numeric: tabular-nums; /* Forces numbers to all be the exact same width if the font supports it */
+    width: 70px; 
+    font-variant-numeric: tabular-nums; 
     margin: 0;
-    font-weight: bold; /* Optional: makes the number pop a bit more */
+    font-weight: bold; 
 }
 
-/* When overlay is visible, trigger the popup scale animation */
 #idle-overlay.visible #idle-popup {
     transform: scale(1);
 }
 
-/* Override the global button radius and text size just for the popup */
 #continue-button {
     border-radius: 30px; 
-    font-size: 30px; /* Default is 54px, tweak this number until it looks right! */
+    font-size: 30px; 
 }
 
 /* =======================================================
@@ -720,14 +789,13 @@ body[data-screen="6"] #fdic-logo {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 9999999;       /* Forces it above absolutely everything else */
-    pointer-events: none;   /* CRITICAL: Allows touch swipes to pass through! */
-    opacity: 0.6;           /* Tweak this between 0.1 and 1 to see the UI underneath */
+    z-index: 9999999;       
+    pointer-events: none;   
+    opacity: 0.0;           
 }
 
 #calibration-overlay img {
     width: 100%;
     height: 100%;
-    object-fit: cover;      /* Ensures the image stretches to fill the exact 4K frame */
+    object-fit: cover;      
 }
-/* ======================================================= */
