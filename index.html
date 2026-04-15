@@ -36,9 +36,10 @@
 
     <div id="scale-wrapper">
       <div class="app-container">
-        <div id="calibration-overlay">
-          <img src="src/assets/images/calibration.png" alt="Calibration Grid" />
-        </div>
+        ```
+
+Just replace your existing `<div id="calibration-overlay">...</div>` with that, and the browser will completely ignore the image until you need it again!
+       
         <div class="safe-zone-viewport">
           <div id="ribbon" class="ribbon" style="--current-index: 0">
             <div class="cloud-layer">
@@ -102,7 +103,7 @@
                   <div class="row-text-block">
                     <p class="body-text qr-subtext">
                       Scan or visit
-                      <span>https://www.capitalone.com/bank/ways-to-bank/</span>
+                      <br>capitalone.com/bank/ways-to-bank/
                     </p>
                   </div>
                 </div>
@@ -282,21 +283,27 @@
                     />
                   </div>
 
-                  <div class="cta-details">
-    <h2 class="headline-bold">
-        EXPLORE LOCATIONS NEARBY
-    </h2>
-
+                 <div class="cta-details">
     <div class="qr-highlight-box">
-        <img src="src/assets/images/QR-Locations.png" class="qr-mini" alt="QR Code" />
-        <p class="body-text">
-            Explore the map on<br />your phone browser
-        </p>
-    </div>
+        
+        <h2 class="headline-bold">
+            FIND A LOCATION NEARBY
+        </h2>
 
-    <p class="body-text disclaimer-text">
-        Map image shown as reference only. Scan or visit locations.capitalone.com to explore locations near you.
-    </p>
+        <div class="qr-content-row">
+            <img src="src/assets/images/QR-Locations.png" class="qr-mini" alt="QR Code" />
+            <p class="body-text new-qr-copy">
+                Explore our fee-free Capital One partner ATMs,<br>
+                add cash in store locations and <br>Capital One Cafés and branches.<br><br>
+                <strong>Scan or visit locations.capitalone.com</strong>
+            </p>
+        </div>
+
+        <p class="body-text disclaimer-text">
+            Map image shown as reference only. 
+        </p>
+
+    </div>
 </div>
 
                 <button
@@ -306,8 +313,7 @@
                 >
                   RESTART
                 </button>
-              </div>
-            </section>
+              </div></div></section>
           </div>
 
           <div id="idle-overlay" class="hidden-overlay">
@@ -335,12 +341,6 @@
               </button>
             </div>
           </div>
-          <img
-            id="fdic-logo"
-            src="src/assets/images/fdic_logo.png"
-            alt="Member FDIC"
-          />
-
           <img
             id="fdic-logo"
             src="src/assets/images/fdic_logo.png"

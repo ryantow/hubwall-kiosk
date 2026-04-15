@@ -4,6 +4,7 @@
  */
 
 // 1. GLOBAL STATE & SPECS
+const ENABLE_DEV_TOOLS = false; // <-- SET TO TRUE FOR LOCAL DEV, FALSE FOR PRODUCTION
 let currentIndex = 0;
 let idleTimer;
 let countdownInterval; // 
@@ -348,6 +349,9 @@ window.devResetKiosk = function() {
 // 7. HIDDEN SHORTCUTS (GOD MODE)
 // ==========================================
 window.addEventListener('keydown', (e) => {
+    // THE GATEKEEPER: Instantly kills the shortcut if dev tools are disabled
+    if (!ENABLE_DEV_TOOLS) return; 
+
     if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'd') {
         const diagMenu = document.getElementById('diagnostic-menu');
         const devMenu = document.getElementById('dev-controls');

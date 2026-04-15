@@ -59,8 +59,21 @@ body {
   width: var(--view-width);
   height: var(--view-height);
   overflow: visible; 
-  outline: 0px dashed rgba(85, 85, 85, 0.513);
-  z-index: 9999;
+  z-index: 99999;
+}
+
+/* The Dev Outline (Floating on top of everything) */
+.safe-zone-viewport::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  outline: 0px dashed rgba(85, 85, 85, 0.8);  /* Dev tool - REMOVE BEFORE FLIGHT */
+  outline-offset: -2px;
+  z-index: 999999; /* Forces this invisible box in front of all scenery */
+  pointer-events: none; /* Let clicks pass straight through */
 }
 
 .ribbon {
@@ -183,7 +196,7 @@ h1.small-headline {
     line-height: 1.2;            /* Tweak this if the spacing between the lines of text is too tight/loose */
 }
 
-/* --- UNIVERSAL DISCLAIMER TEXT (Screens 1-5) --- */
+/* ---  UNIVERSAL DISCLAIMER TEXT (Screens 1-5) --- */
 .content-centered p.disclaimer {
     font-size: 31px !important;  /* <--- DIAL 1: Enter the exact font size */
     margin-top: auto !important; /* Shoves the text all the way down to the floor */
@@ -202,12 +215,12 @@ h1.small-headline {
 }
 
 #screen-0 p.body-text {
-    margin-top: -45px !important; 
+    margin-top: -5px !important; 
 }
 
 #screen-0-qr-row {
     position: absolute;
-    top: 1065px;     
+    top: 1035px;     
     left: 50%;
     transform: translateX(-50%);
     margin: 0;       
@@ -216,15 +229,15 @@ h1.small-headline {
 }
 
 #screen-0-qr-row .qr-image-small {
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 100px;
     flex-shrink: 0;
 }
 
 #screen-0 #screen-0-qr-row p.qr-subtext {
     font-size: 28px !important;
     margin: 0 !important;
-    line-height: 1 !important;
+    line-height: 1.2 !important;
 }
 
 #screen-0-qr-row .row-text-block {
@@ -246,14 +259,14 @@ h1.small-headline {
 
 /* --- BUTTON POSITIONING --- */
 .btn-learn-more {
-    width: 795px;       
-    height: 230px;        
-    border-radius: 80px;  
+    width: 448px;       
+    height: 200px;        
+    border-radius: 60px;  
     background-color: var(--cap1-green); 
     color: white !important;
     font-family: 'Optimist', sans-serif;
     font-weight: 600; 
-    font-size: 54px;      
+    font-size: 40px;      
     text-transform: uppercase;
     letter-spacing: 2px;
     display: flex;
@@ -475,6 +488,10 @@ h1.small-headline {
     --cloud-y: 285px; 
 }
 
+/* --- SCREEN 5 OVERRIDE --- */
+#screen-5 .horizontal-row {
+    margin-top: 110px; /* <--- DIAL: Increase this number to shove the QR row further down */
+}
 /* ==========================================================================
    SCREEN 6 OVERRIDES (THE MASTER FIX)
    ========================================================================== */
@@ -517,59 +534,67 @@ h1.small-headline {
 /* 4. The strict right column scaffold */
 #screen-6 .cta-details {
     position: relative; 
-    height: 786px;      
+    height: 720px; /* Matches the map height */      
     width: 808px;       
     display: block;     
     padding: 0;
     margin: 0;
 }
 
-/* 5. The absolute position coordinates for the text */
-#screen-6 .cta-details h2.headline-bold {
-    position: absolute;
-    top: 80px; 
-    left: 0;
-    width: 100%;
-    margin: 0 !important; 
-    padding: 0 !important;
-    font-size: 54px !important;
-    line-height: 1.1;
-    text-align: center; 
-}
-
+/* 5. The ALL-IN-ONE QR Highlight Card */
 #screen-6 .qr-highlight-box {
     position: absolute;
-    top: 270px; 
-    left: 80px; /* <--- Nudges ONLY the QR box right by 20px */
-    margin: 0 !important;
+    top: 50%; 
+    transform: translateY(-50%); /* Magic trick: Perfectly centers the whole box vertically! */
+    left: 60px; /* <--- DIAL: Nudge the entire box left or right */
+    
     background-color: #d6d927;
     width: 808px; 
-    height: 243px;
+    height: auto; /* Lets the height grow naturally to fit your new text */
+    padding: 40px; /* Gives the text breathing room from the yellow edges */
     border-radius: 30px;
+    box-sizing: border-box;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px; /* <--- DIAL: Space between the headline, QR row, and disclaimer */
+}
+
+/* Inside the Highlight Box: The Headline */
+#screen-6 .qr-highlight-box h2.headline-bold {
+    position: static; /* Resets the absolute positioning from earlier */
+    font-size: 54px !important;
+    line-height: 1.1;
+    text-align: left;
+    margin: 0 !important; 
+    padding: 0 !important;
+}
+
+/* Inside the Highlight Box: The Horizontal QR Row */
+#screen-6 .qr-content-row {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
     gap: 40px; 
 }
 
-#screen-6 .qr-highlight-box p.body-text {
-    font-size: 56px !important;
-    margin: 0 !important;
-    line-height: 1.1;
+/* Inside the Highlight Box: The New Text */
+#screen-6 .qr-content-row p.new-qr-copy {
+    font-size: 24px !important; /* <--- DIAL: Font size for the new copy */
+    line-height: 1.3;
     text-align: left;
-    transform: translateY(-5px); 
+    margin: 0 !important;
 }
 
-#screen-6 .cta-details > p.body-text {
-    position: absolute;
-    bottom: 120px; 
-    left: 0;
-    width: 100%;
-    margin: 0 !important;
+/* Inside the Highlight Box: The Disclaimer */
+#screen-6 .qr-highlight-box p.disclaimer-text {
+    position: static; /* Resets the absolute positioning from earlier */
     font-size: 18px !important;
     color: #013d5b !important;
     text-align: center; 
+    margin: 0 !important;
+    margin-top: 10px !important; /* Shoves it slightly further down from the text above */
 }
 
 /* ==========================================================================
@@ -639,13 +664,13 @@ h1.small-headline {
 
 #restart-button {
     position: absolute;
-    top: 800px; 
+    top: 780px; 
     left: 50%;
     transform: translateX(-50%);
     width: 448px;
-    height: 130px;
-    border-radius: 50px;
-    font-size: 30px !important;
+    height: 200px;
+    border-radius: 60px;
+    font-size: 40px !important;
     margin: 0;
     background-color: var(--cap1-green);
     color: white !important;
@@ -683,6 +708,7 @@ h1.small-headline {
 }
 
 /* OVERRIDES: Move to the Right Side for screens 3, 5, and 6 */
+body[data-screen="1"] #fdic-logo,
 body[data-screen="3"] #fdic-logo,
 body[data-screen="5"] #fdic-logo,
 body[data-screen="6"] #fdic-logo {
