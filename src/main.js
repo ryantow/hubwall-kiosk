@@ -186,14 +186,8 @@ function goToScreen(index) {
 // 4. CONFIG & EXTERNAL ASSETS
 async function loadKioskConfig() {
     try {
-        // Use browser-safe fetch instead of Node.js 'require'
-        const response = await fetch('./config.json');
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        
-        const config = await response.json();
+        // Swapped to Node.js 'require' which natively understands ASAR Unpack routing
+        const config = require('./config.json');
         
         // Handle both lowercase (original) or uppercase (new) key formats
         const id = config.kiosk_id || config.KIOSK_ID; 
@@ -201,8 +195,8 @@ async function loadKioskConfig() {
 
         // Update the dynamic map image
         const mapImg = document.getElementById('dynamic-map');
-       const mapCode = id.replace('hubwall_', ''); // strips the prefix just for the image
-if (mapImg) mapImg.src = `src/assets/images/maps/H_MAP_${mapCode}.png`;
+        const mapCode = id.replace('hubwall_', ''); 
+        if (mapImg) mapImg.src = `src/assets/images/maps/H_MAP_${mapCode}.png`;
         
         // Update diagnostic UI
         const diagId = document.getElementById('diag-id');
@@ -213,7 +207,6 @@ if (mapImg) mapImg.src = `src/assets/images/maps/H_MAP_${mapCode}.png`;
             diagName.textContent = KIOSK_LOCATIONS[id] || "Unknown Location";
         }
 
-        // Retain dev key logic
         if (typeof kioskKeys !== 'undefined') {
             const realIndex = kioskKeys.indexOf(id);
             if (realIndex !== -1) devKioskIndex = realIndex;
@@ -223,7 +216,7 @@ if (mapImg) mapImg.src = `src/assets/images/maps/H_MAP_${mapCode}.png`;
         return config; 
 
     } catch (err) { 
-        console.error("Critical: Could not read config.json via fetch.", err); 
+        console.error("Critical: Could not read config.json.", err); 
     }
 }
 
